@@ -8,7 +8,7 @@ function Sidebar() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme()
 
   return (
-    <nav className={colorScheme === 'dark' ? 'navbar-dark' : 'navbar-light'}>
+    <nav className={classes.navbar}>
       <div className='nav-items'>
         <Center>
           <Button
