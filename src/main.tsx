@@ -8,6 +8,7 @@ import {RedirectToSignIn, SignedOut, SignedIn, ClerkProvider} from '@clerk/clerk
 import {useNavigate, Routes, Route, BrowserRouter} from 'react-router-dom'
 import RootLayout from './layouts/RootLayout.tsx'
 import HomePage from './pages/HomePage.tsx';
+import CreateServerModal from './components/modals/CreateServerModal.tsx';
 
 // Clerk authentication
 const ProtectedRoute = ({ children }: { children: React.ReactNode}) => {
@@ -32,6 +33,7 @@ const RouterComponent= () => {
           index
           element={
             <ProtectedRoute>
+              <CreateServerModal />
               <HomePage />
             </ProtectedRoute>
           }/>
