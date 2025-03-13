@@ -1,5 +1,5 @@
-import { Modal, Text, Flex, Stack, Group, rem } from '@mantine/core'
-import React, { useState } from 'react'
+import { Modal, Text, Flex, Stack, Group, rem, useMantineColorScheme, useMantineTheme } from '@mantine/core'
+import React, { useState, useEffect } from 'react'
 import { useModal } from '../../hooks/useModal'
 import { useForm } from '@mantine/form'
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
@@ -19,6 +19,19 @@ function CreateServerModal() {
     })
     const [imagePreview, setImagePreview] = useState()
 
+    const { colorScheme } = useMantineColorScheme();
+    const theme = useMantineTheme();
+    
+    // State to track hover color
+    const [bgColor, setBgColor] = useState(
+        colorScheme === "dark" ? theme.colors.dark[4] : theme.colors.gray[2]
+    );
+
+    // Update bgColor when colorScheme changes
+    useEffect(() => {
+        setBgColor(colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[3]);
+    }, [colorScheme, theme.colors.dark, theme.colors.gray]);
+
     return (
         <Modal title="Create a server" opened={isOpen} onClose={closeModal}>
             <Text c="dimmed">
@@ -31,8 +44,17 @@ function CreateServerModal() {
                             !imagePreview && <Dropzone
                                 onDrop={() => {}}
                                 accept={IMAGE_MIME_TYPE}
-                                className={classes.dropzone}
+                                className={classes.dropZone}
                                 mt="md"
+                                style={{
+                                    backgroundColor: bgColor
+                                  }}
+                                onMouseEnter={() =>
+                                    setBgColor(colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[4])
+                                }
+                                onMouseLeave={() =>
+                                    setBgColor(colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[3])
+                                }
                             >
                                 <Group style={{
                                     minHeight: rem(100),
