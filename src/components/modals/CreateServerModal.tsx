@@ -1,13 +1,13 @@
-import { Modal, Text, Flex, Stack, Group, rem, useMantineColorScheme, useMantineTheme } from '@mantine/core'
+import { Modal, Text, Flex, Stack, Group, rem, useMantineColorScheme, useMantineTheme, Button, Image } from '@mantine/core'
 import React, { useState, useEffect } from 'react'
 import { useModal } from '../../hooks/useModal'
 import { useForm } from '@mantine/form'
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone'
+import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from '@mantine/dropzone'
 import classes from './CreateServerModal.module.css'
-import { IconUpload } from '@tabler/icons-react'
+import { IconUpload, IconX } from '@tabler/icons-react'
 
 function CreateServerModal() {
-    const {isOpen, closeModal} = useModal("CreateServer")
+    const {isOpen, closeModal} = useModal("CreateServer");
 
     const form = useForm({
         initialValues: {
@@ -16,8 +16,9 @@ function CreateServerModal() {
         validate: {
             name: (value) => !value.trim() && "Name is required.",
         }
-    })
-    const [imagePreview, setImagePreview] = useState()
+    });
+
+    const [imagePreview, setImagePreview] = useState<string | null | undefined>(undefined);
 
     const { colorScheme } = useMantineColorScheme();
     const theme = useMantineTheme();
@@ -32,6 +33,19 @@ function CreateServerModal() {
         setBgColor(colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[3]);
     }, [colorScheme, theme.colors.dark, theme.colors.gray]);
 
+    // Place file in here, send it to the backend
+    const [file, setFile] = React.useState<File | null>(null)
+    const handleDropzoneChange: DropzoneProps["onDrop"] = (files) => {
+        if(files.length === 0) {
+            return setImagePreview(null)
+        }
+        const reader = new FileReader()
+        reader.onload = (e) => {
+            setImagePreview(e.target?.result as string)
+        }
+        setFile(files[0])
+        reader.readAsDataURL(files[0])
+    }
     return (
         <Modal title="Create a server" opened={isOpen} onClose={closeModal}>
             <Text c="dimmed">
@@ -42,7 +56,9 @@ function CreateServerModal() {
                     <Flex justify="center" align="center" direction={"column"}>
                         {
                             !imagePreview && <Dropzone
-                                onDrop={() => {}}
+                                onDrop={(files) => {
+                                    handleDropzoneChange(files)
+                                }}
                                 accept={IMAGE_MIME_TYPE}
                                 className={classes.dropZone}
                                 mt="md"
@@ -79,6 +95,32 @@ function CreateServerModal() {
                                     </>
                                 </Group>
                             </Dropzone>
+                        }
+
+                        {
+                            imagePreview
+                            && (
+                                <Flex pos="relative" w={rem(150)} h={rem(150)} mt="md">
+                                    <>
+                                        <Button
+                                        onClick={() => setImagePreview(null)}
+                                        color="red"
+                                        pos="absolute"
+                                        style={{
+                                            zIndex: 1,borderRadius: "50%",
+                                            padding: 0,
+                                            width: rem(30),
+                                            height: rem(30),
+                                            top: 0,
+                                        }}
+                                        >
+                                            <IconX color="white" />
+                                        </Button>
+                                        <Image
+                                        src={imagePreview} w={rem(150)} h={rem(150)} />
+                                    </>
+                                </Flex>
+                            )
                         }
                     </Flex>
                 </Stack>
