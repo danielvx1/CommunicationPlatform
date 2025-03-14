@@ -1,4 +1,4 @@
-import { Modal, Text, Flex, Stack, Group, rem, useMantineColorScheme, useMantineTheme, Button, Image } from '@mantine/core'
+import { Modal, Text, Flex, Stack, Group, rem, useMantineColorScheme, useMantineTheme, Button, Image, TextInput } from '@mantine/core'
 import React, { useState, useEffect } from 'react'
 import { useModal } from '../../hooks/useModal'
 import { useForm } from '@mantine/form'
@@ -112,17 +112,25 @@ function CreateServerModal() {
                                             width: rem(30),
                                             height: rem(30),
                                             top: 0,
+                                            right: 18,
                                         }}
                                         >
                                             <IconX color="white" />
                                         </Button>
                                         <Image
-                                        src={imagePreview} w={rem(150)} h={rem(150)} />
+                                        src={imagePreview} w={rem(150)} h={rem(150)} radius={"50%"} />
                                     </>
                                 </Flex>
                             )
                         }
                     </Flex>
+                    <TextInput label="Server name" placeholder="Enter a server name"
+                    {...form.getInputProps("name")}
+                    error={form.errors.name}
+                    />
+                    <Button disabled={!!form.errors.name} w={"30%"} type="submit" variant="gradient" mt="md">
+                        Create Server
+                    </Button>
                 </Stack>
             </form>
         </Modal>
