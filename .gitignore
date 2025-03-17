@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Backend .gitignore
 # compiled output
 /dist
@@ -5,10 +6,13 @@ dancord_frontend/node_modules
 dancord_backend/node_modules
 /build
 
+=======
+>>>>>>> 455ca6d0d26e7cc259a647cba32537a372aadb08
 # Logs
 logs
 *.log
 npm-debug.log*
+<<<<<<< HEAD
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -58,10 +62,24 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Frontend .gitignore
+=======
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+>>>>>>> 455ca6d0d26e7cc259a647cba32537a372aadb08
 dist-ssr
 *.local
 
 # Editor directories and files
+<<<<<<< HEAD
+=======
+.vscode/*
+!.vscode/extensions.json
+>>>>>>> 455ca6d0d26e7cc259a647cba32537a372aadb08
 .idea
 .DS_Store
 *.suo
@@ -70,4 +88,8 @@ dist-ssr
 *.sln
 *.sw?
 
+<<<<<<< HEAD
 dancord_frontend/src/vite-env.d.ts
+=======
+.env
+>>>>>>> 455ca6d0d26e7cc259a647cba32537a372aadb08
