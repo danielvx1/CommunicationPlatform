@@ -69,4 +69,4 @@ dist-ssr
 *.sln
 *.sw?
 
-frontend/src/vite-env.d.ts
+dancord_frontend/src/vite-env.d.ts
