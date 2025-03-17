@@ -15,6 +15,8 @@ const path_1 = require("path");
 const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
 const server_module_1 = require("./server/server.module");
+const profile_module_1 = require("./profile/profile.module");
+const member_module_1 = require("./member/member.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -38,6 +40,8 @@ exports.AppModule = AppModule = __decorate([
                 },
             }),
             server_module_1.ServerModule,
+            profile_module_1.ProfileModule,
+            member_module_1.MemberModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

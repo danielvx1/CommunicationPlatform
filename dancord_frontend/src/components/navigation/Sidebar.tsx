@@ -44,6 +44,7 @@ function Sidebar() {
           >
             {colorScheme == 'dark' ? (<IconMoon radius={100} />) : (<IconSun radius={100} />)}
           </Button>
+          <UserButton />
         </Stack>
       </div>
     </nav>

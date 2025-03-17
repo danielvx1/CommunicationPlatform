@@ -1,7 +1,8 @@
 # Backend .gitignore
 # compiled output
 /dist
-/node_modules
+dancord_frontend/node_modules
+dancord_backend/node_modules
 /build
 
 # Logs

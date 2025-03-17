@@ -9,6 +9,8 @@ import {useNavigate, Routes, Route, BrowserRouter} from 'react-router-dom'
 import RootLayout from './layouts/RootLayout.tsx'
 import HomePage from './pages/HomePage.tsx';
 import CreateServerModal from './components/modals/CreateServerModal.tsx';
+import { ApolloProvider } from "@apollo/client"
+import client from "./apolloClient.ts"
 
 // Clerk authentication
 const ProtectedRoute = ({ children }: { children: React.ReactNode}) => {
@@ -47,11 +49,13 @@ const RouterComponent= () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <MantineProvider>
-      <BrowserRouter>
-        <RouterComponent />
-      </BrowserRouter>
-    </MantineProvider>
+    <ApolloProvider client={client}>
+      <MantineProvider>
+        <BrowserRouter>
+          <RouterComponent />
+        </BrowserRouter>
+      </MantineProvider>
+    </ApolloProvider>
   </StrictMode>,
 )
 
